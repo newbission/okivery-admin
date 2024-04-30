@@ -2,6 +2,9 @@
 name: Deploy static content to Pages
 
 on:
+  # 기본 브랜치에 대한 푸시 이벤트 발생 시 실행
+  push:
+    branches: ['pages']
   pull_request:
     branches: ['pages']
 
@@ -47,4 +50,4 @@ jobs:
           path: './dist'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v3
