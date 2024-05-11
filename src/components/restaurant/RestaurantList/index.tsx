@@ -9,7 +9,7 @@ const RestaurantList = ({restaurantList}: Props) => {
   return (
     <ul>
         {
-            restaurantList.map(e=><RestaurantListItem item={e} />)
+            restaurantList.map(e=><RestaurantListItem item={e} key={e?.id}/>)
         }
     </ul>
   )

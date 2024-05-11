@@ -6,13 +6,13 @@ import * as Yup from 'yup';
 
 import { Loding } from '@components/index';
 import styles from '@pages/auth/LoginPage/LoginPage.module.css';
-import { myaxios as axios } from '@utils/apiController';
+import { getResponseData } from '@utils/apiController';
 import { SessionStorage } from '@utils/storage';
 
 import {
-  APIPurpose as Purpose,
+  APIPurpose,
   SessionData,
-  APIStatus as Status,
+  APIStatus,
 } from '@utils/custom_constant';
 import { set_title } from 'App';
 
@@ -49,23 +49,25 @@ const LoginPage = (props: Props) => {
   const handleSubmit = (values: LoginForm) => {
     const login = async () => {
       try {
-        const response = await axios.post(Purpose.ADMIN_LOGIN, {
+        const response = await getResponseData(APIPurpose.ADMIN_LOGIN, 'POST', {
           email: values.email,
           password: values.password,
         });
-        const data = response.data;
-        const sessionStorage = SessionStorage.getInstance();
-        sessionStorage.set(SessionData.ACCESS, data.access);
-        sessionStorage.set(SessionData.REFRESH, data.refresh);
+        if(response?.status === APIStatus.OK){
+          const data = response.data;
+          const sessionStorage = SessionStorage.getInstance();
+          sessionStorage.set(SessionData.ACCESS, data.access);
+          sessionStorage.set(SessionData.REFRESH, data.refresh);
+        }
         navigate('/');
       } catch (error) {
         if (error instanceof AxiosError) {
           if (error.response) {
             const status: number = error.response.status;
-            if (status === Status.BAD_REQUEST) {
+            if (status === APIStatus.BAD_REQUEST) {
               alert('invalid email or password');
               console.log(error.message);
-            } else if (status === Status.SERVER_ERROR) {
+            } else if (status === APIStatus.SERVER_ERROR) {
               alert('server error please wait or call to server manager');
             }
           } else if (error.request) {
