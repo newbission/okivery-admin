@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { NavigateButton } from '@components/index';
 
 import { set_title } from 'App';
-type Props = {};
 
-const MainPage = (props: Props) => {
+const MainPage = () => {
   const navigate = useNavigate();
   const accessToken = sessionStorage.getItem('access');
   useEffect(() => {
