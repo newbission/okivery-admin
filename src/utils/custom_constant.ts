@@ -8,6 +8,7 @@ export enum APIStatus {
 
 export enum APIPurpose {
     ADMIN_LOGIN='admin/auth/',
+    RESTAURANT_LIST='restaurant/list/'
 }
 
 export enum SessionData {
