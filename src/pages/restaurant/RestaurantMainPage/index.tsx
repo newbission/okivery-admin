@@ -18,7 +18,7 @@ const RestaurantMainPage = (props: Props) => {
         if(response?.status === APIStatus.OK){
           console.log(response)
           console.log(response?.status, response?.data)
-          setRestaurants([...response.data])
+          setRestaurants([...response.data.restaurants])
         }
         setIsLoading(false);
       }

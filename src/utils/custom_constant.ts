@@ -7,7 +7,7 @@ export enum APIStatus {
 }
 
 export enum APIPurpose {
-    ADMIN_LOGIN='admin/auth/',
+    ADMIN_LOGIN='auth/',
     RESTAURANT_LIST='restaurant/list/'
 }
 

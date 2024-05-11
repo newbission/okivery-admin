@@ -21,7 +21,7 @@ refreshAxios.interceptors.request.use(async (config) => {
 });
 
 const myaxios = axios.create({
-  baseURL: `http://${HOST}/api/v1/`,
+  baseURL: `http://${HOST}/api/v1/admin/`,
   timeout: 5000,
 });
 
