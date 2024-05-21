@@ -12,13 +12,13 @@ export const set_title = (subtitle?: string): void => {
   document.title = title;
 };
 function App() {
-  let location: Array<string> | string = useLocation().pathname.split('/');
+  // let location: Array<string> | string = useLocation().pathname.split('/');
   useEffect(() => {
     let subtitle: string = '';
-    if (location.length > 1) {
-      location = location[1];
-      subtitle = location[0].toUpperCase() + location.slice(1);
-    }
+    // if (location.length > 1) {
+    //   location = location[1];
+    //   subtitle = location[0].toUpperCase() + location.slice(1);
+    // }
     set_title(subtitle);
   }, []);
 
