@@ -8,7 +8,7 @@ import styles from '@pages/auth/LoginPage/LoginPage.module.css';
 import { myaxios as axios } from '@utils/api_controller';
 import { SessionStorage } from '@utils/storage';
 
-import { APIPurpose, APIStatus, SessionData } from '@utils/custom_constant';
+import { APIPurpose, SessionData, APIStatus } from '@utils/custom_constant';
 import { set_title } from 'App';
 
 interface LoginForm {
