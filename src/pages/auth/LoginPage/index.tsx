@@ -9,19 +9,20 @@ import styles from '@pages/auth/LoginPage/LoginPage.module.css';
 import { myaxios as axios } from '@utils/api_controller';
 import { SessionStorage } from '@utils/storage';
 
+<<<<<<< Updated upstream
 import {
   APIPurpose as Purpose,
   SessionData,
   APIStatus as Status,
 } from '@utils/custom_constant';
+=======
+import { APIPurpose, SessionData, APIStatus } from '@utils/custom_constant';
+>>>>>>> Stashed changes
 import { set_title } from 'App';
-
-type Props = {};
 
 interface LoginForm {
   email: string;
   password: string;
-  keep: boolean;
 }
 
 const LoginValidationSchema = Yup.object().shape({
@@ -29,17 +30,7 @@ const LoginValidationSchema = Yup.object().shape({
   password: Yup.string().required('password is required'),
 });
 
-const IS_LOGINED: string = 'is_logined';
-
-const get_local = (key: string) => {
-  return localStorage.getItem(key);
-};
-
-const LoginPage = (props: Props) => {
-  const [isLogined, setIsLogined] = useState<boolean>(
-    Boolean(get_local(IS_LOGINED))
-  );
-
+const LoginPage = () => {
   useEffect(() => {
     set_title('Login');
   });
@@ -53,10 +44,19 @@ const LoginPage = (props: Props) => {
           email: values.email,
           password: values.password,
         });
+<<<<<<< Updated upstream
         const data = response.data;
         const sessionStorage = SessionStorage.getInstance();
         sessionStorage.set(SessionData.ACCESS, data.access);
         sessionStorage.set(SessionData.REFRESH, data.refresh);
+=======
+        if (response?.status === APIStatus.OK) {
+          const data = response.data;
+          const sessionStorage = SessionStorage.getInstance();
+          sessionStorage.set(SessionData.ACCESS, data.access);
+          sessionStorage.set(SessionData.REFRESH, data.refresh);
+        }
+>>>>>>> Stashed changes
         navigate('/');
       } catch (error) {
         if (error instanceof AxiosError) {
@@ -78,13 +78,11 @@ const LoginPage = (props: Props) => {
     };
     login();
   };
-  return isLogined ? (
-    <Loding />
-  ) : (
+  return (
     <div>
       <h1 className={styles.test}>Admin Login Page</h1>
       <Formik
-        initialValues={{ email: '', password: '', keep: false }}
+        initialValues={{ email: '', password: '' }}
         validationSchema={LoginValidationSchema}
         onSubmit={handleSubmit}
       >

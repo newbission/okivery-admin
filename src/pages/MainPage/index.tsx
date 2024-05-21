@@ -17,7 +17,7 @@ const MainPage = (props: Props) => {
   }, []);
   return (
     <>
-      <NavigateButton>주문</NavigateButton>
+      <NavigateButton to='order'>주문</NavigateButton>
       <NavigateButton to='restaurant'>가게</NavigateButton>
       <NavigateButton to='category'>카테고리</NavigateButton>
       <NavigateButton to='hashtag'>해시테그</NavigateButton>
