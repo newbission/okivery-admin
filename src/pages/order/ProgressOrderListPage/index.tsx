@@ -38,6 +38,43 @@ const ProgressOrderListPage = () => {
       }
     } catch (error) {}
   }
+  const requestDispatch = async (id:number) => {
+    const delivery_man = Math.floor(Math.random() * 10) + 1
+    try {
+      const response = await getResponseData(
+        APIPurpose.DELIVERY_DISPATCH,
+        'POST',
+        {order_id: id, delivery_man_id: delivery_man}
+      );
+      if (response?.status === APIStatus.OK) {
+        getOrders();
+      }
+    } catch (error) {}
+  }
+  const requestPickup = async (id:number) => {
+    try {
+      const response = await getResponseData(
+        APIPurpose.DELIVERY_PICKUP,
+        'POST',
+        {order_id: id}
+      );
+      if (response?.status === APIStatus.OK) {
+        getOrders();
+      }
+    } catch (error) {}
+  }
+  const requestDeliveryComplete = async (id:number) => {
+    try {
+      const response = await getResponseData(
+        APIPurpose.DELIVERY_COMPLETE,
+        'POST',
+        {order_id: id}
+      );
+      if (response?.status === APIStatus.OK) {
+        getOrders();
+      }
+    } catch (error) {}
+  }
   return isLoading ? (
     <Loading />
   ) : (
@@ -52,6 +89,9 @@ const ProgressOrderListPage = () => {
           <li key={e.id} style={{ marginBottom: 10 }}>
             {e.id}. {e.status}{' '}
             {e.status === 'Cooking' ? <button onClick={() => requestCooked(e.id)}>조리완료</button> : null}
+            <button onClick={() => requestDispatch(e.id)}>배차하기</button>
+            <button onClick={() => requestPickup(e.id)}>픽업하기</button>
+            <button onClick={() => requestDeliveryComplete(e.id)}>배달완료</button>
           </li>
         ))}
       </ul>

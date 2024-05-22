@@ -14,6 +14,9 @@ export enum APIPurpose {
   ORDER_APPROVE = '/order/approve/',
   ORDER_CANCEL = '/order/cancle/',
   ORDER_COOKED = '/order/cooked/',
+  DELIVERY_DISPATCH = '/order/assign/',
+  DELIVERY_PICKUP = '/order/delivering/',
+  DELIVERY_COMPLETE = '/order/completedelivery/',
 }
 
 export enum SessionData {
