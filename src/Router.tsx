@@ -8,6 +8,7 @@ import {
   OrderMainPage,
   OrderListPage,
   NewOrderListPage,
+  ProgressOrderListPage,
 } from './pages';
 const router = createBrowserRouter(
   [
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
         { path: 'order', element: <OrderMainPage /> },
         { path: 'order/list', element: <OrderListPage /> },
         { path: 'order/list/new', element: <NewOrderListPage /> },
+        { path: 'order/list/progress', element: <ProgressOrderListPage /> },
         { path: 'hashtag', element: <HashtagPage /> },
         { path: 'category', element: <CategoryPage /> },
       ],
