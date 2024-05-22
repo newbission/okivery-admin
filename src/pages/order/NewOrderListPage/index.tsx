@@ -5,10 +5,16 @@ import { APIPurpose, APIStatus } from '@utils/custom_constant';
 
 import styles from './NewOrderListPage.module.css';
 import ReplyButtonArea from '@components/order/ReplyButtonArea';
+import { useNavigate } from 'react-router-dom';
 
 const NewOrderListPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [orders, setOrders] = useState<Array<any>>([]);
+  const navigate = useNavigate();
+  const removeOrder = (id: number) => {
+    // const newOrders = orders.splice(idx, 1)
+    setOrders(orders.filter((e) => e.id !== id));
+  };
   useEffect(() => {
     // api로 리스트 가져오기
     const getNewOrderList = async () => {
@@ -34,14 +40,24 @@ const NewOrderListPage = () => {
         height: '100%',
       }}
     >
+      <h1 style={{ textAlign: 'center', margin: 0 }}>신규 주문 목록</h1>
       <ul className={`${styles.list} ${styles.no_scrollbar}`}>
         {orders.map((e) => (
-          <li key={e.id}>
-            {e.id}. 
-            <ReplyButtonArea id={e.id} />
+          <li key={e.id} style={{ marginBottom: 10 }}>
+            {e.id}.
+            <ReplyButtonArea id={e.id} removeOrder={removeOrder} />
           </li>
         ))}
       </ul>
+      <div style={{ textAlign: 'center' }}>
+        <button
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          돌아가기
+        </button>
+      </div>
     </div>
   );
 };

@@ -8,6 +8,7 @@ export enum APIStatus {
 
 export enum APIPurpose {
     ADMIN_LOGIN='/auth/',
+    ORDER_LIST='order/list/',
     ORDER_LIST_NEW='order/list/?new=1',
     ORDER_APPROVE='/order/approve/',
     ORDER_CANCEL='/order/cancle/',

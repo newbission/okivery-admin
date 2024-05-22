@@ -3,29 +3,23 @@ import { getResponseData } from '@utils/apiController';
 import { APIPurpose, APIStatus } from '@utils/custom_constant';
 type ReplyButtonAreaProps = {
   id: number;
+  removeOrder: (id: number) => void;
 };
 
-const ReplyButtonArea = ({ id }: ReplyButtonAreaProps) => {
+const ReplyButtonArea = ({ id, removeOrder }: ReplyButtonAreaProps) => {
   const [selfDelivery, setSelfDelivery] = useState<boolean>(false);
   const [cookingTime, setCookingTime] = useState<number>(0);
   const [isApprove, setIsApprove] = useState<string | null>(null);
   const [cancelReason, setCancelReason] = useState<number | null>(null);
 
-  // ORDER_CANCELED_REASON_CUSTOMER_REQUEST = 300995     # 고객 요청
-  // ORDER_CANCELED_REASON_WRONG_ADDRESS = 300996        # 잘못된 주소
-  // ORDER_CANCELED_REASON_RESTAURANT_ISSUE = 300997     # 가게 사정
-  // ORDER_CANCELED_REASON_OUT_OF_STOCK = 300998         # 재료 소진
-  // ORDER_CANCELED_REASON_CLOSED = 300999               # 영업 종료
-  // is_self_delivery
-  // time
-  // reject, approve
-  // cancel reason
-  // status
-  const orderReplyHandler = async (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    let reqData = null
-    let url = null
+  useEffect(() => {
+    setSelfDelivery(false);
+    setIsApprove(null);
+  }, []);
+
+  const orderReplyHandler = async () => {
+    let reqData = null;
+    let url = null;
     if (isApprove === 'approve') {
       if (!cookingTime) {
         console.log('cookingTime is required');
@@ -36,24 +30,22 @@ const ReplyButtonArea = ({ id }: ReplyButtonAreaProps) => {
         is_self_delivery: Number(selfDelivery),
         time: cookingTime,
       };
-      url = APIPurpose.ORDER_APPROVE
-    }else {
-      url = APIPurpose.ORDER_CANCEL
+      url = APIPurpose.ORDER_APPROVE;
+    } else {
+      url = APIPurpose.ORDER_CANCEL;
       reqData = {
         order_id: id,
         status_code: 300002,
-        cancle_reason: cancelReason
-      }
+        cancle_reason: cancelReason,
+      };
     }
-    if(!reqData || !url) return;
-    try{
-      const response = await getResponseData(url, 'POST', reqData)
-      if(response?.status === APIStatus.OK){
-        location.reload();
+    if (!reqData || !url) return;
+    try {
+      const response = await getResponseData(url, 'POST', reqData);
+      if (response?.status === APIStatus.OK) {
+        removeOrder(id);
       }
-    }catch{
-
-    }
+    } catch {}
   };
   const isApproveHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     setIsApprove(event.currentTarget.value);
