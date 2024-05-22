@@ -1,0 +1,20 @@
+.list {
+  display: block;
+  margin: 0;
+  padding: 0;
+  height: 90%;
+  overflow: auto;
+}
+
+.list tr{
+    display: block;
+    width: 100%;
+}
+
+.no_scrollbar {
+  -ms-overflow-style: none;
+}
+
+.no_scrollbar::-webkit-scrollbar {
+  display: none;
+}
