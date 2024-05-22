@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import styles from '@pages/auth/LoginPage/LoginPage.module.css';
-import { myaxios as axios } from '@utils/api_controller';
+import { getResponseData } from '@utils/apiController';
 import { SessionStorage } from '@utils/storage';
 
 import { APIPurpose, SessionData, APIStatus } from '@utils/custom_constant';
@@ -31,10 +31,10 @@ const LoginPage = () => {
   const handleSubmit = (values: LoginForm) => {
     const login = async () => {
       try {
-        const response = await axios.post(APIPurpose.ADMIN_LOGIN, {
+        const response = await getResponseData(APIPurpose.ADMIN_LOGIN, 'POST', {
           email: values.email,
           password: values.password,
-        });
+        })
         if (response?.status === APIStatus.OK) {
           const data = response.data;
           const sessionStorage = SessionStorage.getInstance();
